@@ -1,3 +1,7 @@
+variable "docker_version" {
+  description = "the docker version to install"
+  default = "18.06.3"
+}
 variable "efs_filesystem_id" {
   description = "the efs filesystem id. (required when install_efs is enabled)"
   default  = ""
@@ -8,8 +12,13 @@ variable "efs_mount_path" {
   default = ""
 }
 
+variable "install_docker" {
+  description = "install docker"
+  default = "1"
+}
+
 variable "install_efs" {
-  description = "install efs?"
+  description = "install efs"
   default = "0"
 }
 

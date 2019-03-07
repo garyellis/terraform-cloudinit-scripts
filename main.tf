@@ -16,7 +16,7 @@ data "template_file" "efs" {
 data "template_file" "docker" {
   template = "${file("${path.module}/templates/docker.sh.tpl")}"
   vars {
-    docker_version = "17.03.1"
+    docker_version = "${var.docker_version}"
   }
 }
 
@@ -39,12 +39,12 @@ data "template_cloudinit_config" "config" {
   # install docker
   part {
     content_type = "text/x-shellscript"
-    content      = "${data.template_file.docker.rendered}"
+    content      = "${var.install_docker ? data.template_file.docker.rendered : data.template_file.noop.rendered}"
   }
 
   # install rancher server
   part {
     content_type = "text/x-shellscript"
-		content      = "${var.install_rancher_server ? data.template_file.rancher_server.rendered : data.template_file.noop.rendered}"
+    content      = "${var.install_rancher_server ? data.template_file.rancher_server.rendered : data.template_file.noop.rendered}"
   }
 }
