@@ -16,19 +16,28 @@ data "template_file" "efs" {
 data "template_file" "docker" {
   template = "${file("${path.module}/templates/docker.sh.tpl")}"
   vars {
-    docker_version = "${var.docker_version}"
+    install_docker_version = "${var.install_docker_version}"
+    install_docker_compose = "${var.install_docker_compose}"
   }
+}
+
+data "template_file" "ansible" {
+  templates = "${file("${path.module}/templates/ansible.sh")}"
+  vars {}
 }
 
 
 data "template_file" "rancher_server" {
-  template = "${file("${path.module}/templates/rancher_server.sh.tpl")}"
+  template = "${file("${path.module}/templates/rancher_single_node.sh.tpl")}"
+  vars {
+    install_rancher_version = "${var.install_rancher_version}"
+  }
 }
 
 
 data "template_cloudinit_config" "config" {
-  gzip          = true
-  base64_encode = true
+  gzip          = "${var.gzip}"
+  base64_encode = "${var.base64_encode}"
 
   # install and configure efs
   part {
@@ -40,6 +49,12 @@ data "template_cloudinit_config" "config" {
   part {
     content_type = "text/x-shellscript"
     content      = "${var.install_docker ? data.template_file.docker.rendered : data.template_file.noop.rendered}"
+  }
+
+  # install ansible
+  part {
+    content_type = "text/x-shellscript"
+    content      = "${var.install_ansible ? data.template_file.ansible.rendered : data.template_file.noop.rendered}"
   }
 
   # install rancher server

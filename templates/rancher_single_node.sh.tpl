@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# yes we're pointing to latest right now.
+RANCHER_VRESION=${install_rancher_version}
 
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
@@ -10,4 +10,4 @@ docker run -d --restart=unless-stopped \
   -e AUDIT_LOG_MAXAGE=20 \
   -e AUDIT_LOG_MAXBACKUP=20 \
   -e AUDIT_LOG_MAXSIZE=100 \
-  rancher/rancher:latest
+  rancher/rancher:${RANCHER_VERSION}

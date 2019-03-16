@@ -2,7 +2,9 @@
 
 # A very basic docker binary install that can be expanded upon
 
-DOCKER_VERSION=${docker_version}
+DOCKER_VERSION=${install_docker_version}
+INSTALL_DOCKER_COMPOSE=${install_docker_compose}
+DOCKER_COMPOSE_VERSION=1.23.2
 
 function install_docker_ubuntu(){
 
@@ -49,4 +51,14 @@ function install_docker_centos(){
     systemctl enable docker && systemctl start docker
 }
 
+function install_docker_compose(){
+    curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    chmod 755 /usr/local/bin/docker-compose
+}
+
+
+# install ubuntu is not currently wired up
 type docker >/dev/null || install_docker_centos
+
+
+[ "$INSTALL_DOCKER_COMPOSE" = 1 ] && (type docker-compose 2>/dev/null || install_docker_compose)
