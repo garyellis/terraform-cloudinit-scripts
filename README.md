@@ -1,13 +1,20 @@
 # tf_module_cloud_init
 
-Centrally manage cloud-init scripts to stop hard coding scriptlets into otherwise generic terraform hcl. This module supports the following usages:
+Centrally manage cloud-init scripts. This module supports the following usages:
 
 * Create multi-part cloud-init configs
 * Toggle switch to  control which shell scripts are used.
 * Use the cloud-init config output as input to `aws_instance`, `aws_launch_template` and `aws_launch_configuration` resources.
 
+## Why centralize cloud-init scripting?
 
-> Whe adding scripts, do not embed secrets configuration into cloud-init. In cloud environments like AWS, aws any user with ec2 describe instances can view this in the ec2 instance userdata instance attribute.
+* Loose coupling infrastructure resources to "user_data" scripts promotes terraform modules reusability and extensibility.
+* Centrally managing bootstrap scripts aids in genericising the bootstrap process. Bootstrapping different CM tools should be a trivial task.
+* A collection of cloud-init scripts can be used as light weight os configuration management strategy.
+
+#### Note
+
+> When adding scripts, do not embed secrets configuration into cloud-init. In cloud environments like AWS, aws any user with ec2 describe instances can view this in the ec2 instance userdata instance attribute.
 > Instead, pass configuration to drive secrets configuration. i.e. url to fetch a secret.
 
 ## Inputs
