@@ -22,7 +22,7 @@ data "template_file" "docker" {
 }
 
 data "template_file" "ansible" {
-  templates = "${file("${path.module}/templates/ansible.sh")}"
+  template = "${file("${path.module}/templates/ansible.sh")}"
   vars {}
 }
 
