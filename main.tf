@@ -34,6 +34,14 @@ data "template_file" "rancher_server" {
   }
 }
 
+data "template_file" "extra_user_data" {
+  template = <<EOF
+#!/bin/bash
+
+${var.extra_user_data}
+  EOF
+}
+
 
 data "template_cloudinit_config" "config" {
   gzip          = "${var.gzip}"
@@ -61,5 +69,11 @@ data "template_cloudinit_config" "config" {
   part {
     content_type = "text/x-shellscript"
     content      = "${var.install_rancher_server ? data.template_file.rancher_server.rendered : data.template_file.noop.rendered}"
+  }
+
+  # extra user_defined userdata
+  part {
+    content_type = "text/x-shellscript"
+    content      = "${var.extra_user_data != "" ? data.template_file.extra_user_data.rendered : data.template_file.noop.rendered}"
   }
 }

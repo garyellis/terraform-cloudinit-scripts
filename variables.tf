@@ -18,6 +18,11 @@ variable "efs_mount_path" {
   default = ""
 }
 
+variable "extra_user_data" {
+  description = "append an extra userdata shell script to cloud-init"
+  default = ""
+}
+
 variable "install_docker" {
   description = "install docker"
   default = "1"

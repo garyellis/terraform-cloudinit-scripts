@@ -10,4 +10,4 @@ docker run -d --restart=unless-stopped \
   -e AUDIT_LOG_MAXAGE=20 \
   -e AUDIT_LOG_MAXBACKUP=20 \
   -e AUDIT_LOG_MAXSIZE=100 \
-  rancher/rancher:${RANCHER_VERSION}
+  rancher/rancher:$RANCHER_VERSION

@@ -24,13 +24,14 @@ Centrally manage cloud-init scripts. This module supports the following usages:
 | base64\_encode | base64 encode the cloud-init config | string | `"true"` | no |
 | efs\_filesystem\_id | the efs filesystem id. (required when install_efs is enabled) | string | `""` | no |
 | efs\_mount\_path | the efs filesystem id. (required when install_efs is enabled) | string | `""` | no |
+| extra\_user\_data | append an extra userdata shell script to cloud-init | string | `""` | no |
 | gzip | gzip the cloud-init config | string | `"true"` | no |
 | install\_ansible | instal ansible | string | `"0"` | no |
 | install\_docker | install docker | string | `"1"` | no |
 | install\_docker\_compose | install docker compose | string | `"1"` | no |
 | install\_docker\_version | the docker version to install | string | `"18.06.3"` | no |
 | install\_efs | install efs | string | `"0"` | no |
-| install\_rancher\_server | install single node rancher server? | string | `"0"` | no |
+| install\_rancher\_server | install single node rancher server | string | `"0"` | no |
 | install\_rancher\_version | the rancher server version | string | `"stable"` | no |
 
 ## Outputs
