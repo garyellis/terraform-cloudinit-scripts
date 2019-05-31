@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RANCHER_VRESION=${install_rancher_version}
+RANCHER_VERSION=${install_rancher_version}
 
 docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
