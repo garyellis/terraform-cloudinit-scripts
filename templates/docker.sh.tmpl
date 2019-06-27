@@ -61,4 +61,4 @@ function install_docker_compose(){
 type docker >/dev/null || install_docker_centos
 
 
-[ "$INSTALL_DOCKER_COMPOSE" = 1 ] && (type docker-compose 2>/dev/null || install_docker_compose)
+[ "$INSTALL_DOCKER_COMPOSE" = true ] && (type docker-compose 2>/dev/null || install_docker_compose)
