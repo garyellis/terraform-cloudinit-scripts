@@ -49,5 +49,5 @@ variable "docker_compose_version" {
 variable "docker_version" {
   description = "the docker version to install"
   type = string
-  default = "18.09.3"
+  default = "18.06.3"
 }
