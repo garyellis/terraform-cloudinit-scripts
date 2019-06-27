@@ -1,59 +1,40 @@
+locals {
+  custom_user_data_yaml = <<EOT
+#cloud-config
+runcmd:
+  - echo "hello foo bar shell script"
+EOT
+
+  custom_user_data_script = <<EOT
+#!/bin/bash
+echo "hello foo bar shell script part"
+
+EOT
+}
+
 module "userdata_docker" {
   source = "../"
 
-  base64_encode  = "false"
-  gzip            = "false"
-  install_docker  = "1"
+  base64_encode          = false
+  gzip                   = false
+  install_docker         = true
+  install_docker_compose = true
+  extra_user_data_script = local.custom_user_data_script
+  extra_user_data_yaml   = local.custom_user_data_script
+
 }
 
 
 
-module "userdata_docker_and_docker_compose" {
-  source = "../"
-
-  base64_encode          = "false"
-  gzip                   = "false"
-  install_docker         = "1"
-  install_docker_compose = "1" # install docker compose does not currently implicitly enable install_docker
+output "userdata_docker" {
+  value = module.userdata_docker.cloudinit_userdata
 }
 
-module "userdata_ansible" {
-  source = "../"
-
-  base64_encode   = "false"
-  gzip            = "false"
-  install_docker  = "0"
-  install_ansible = "1"
+output "cloudinit_shellscripts" {
+  value = module.userdata_docker.cloudinit_shellscripts
 }
 
-
-module "userdata_docker_and_ansible_and_rancher" {
-  source = "../"
-
-  base64_encode          = "false"
-  gzip                   = "false"
-  install_docker         = "1"
-  install_ansible        = "1"
-  install_rancher_server = "1"
+output "cloudinit_yamls" {
+  value = module.userdata_docker.cloudinit_yamls
 }
 
-
-
-
-
-
-output "userdata_docker" { 
-  value = "${module.userdata_docker.cloudinit_userdata}"
-}
-
-output "userdata_docker_and_docker_compose" {
-  value = "${module.userdata_docker_and_docker_compose.cloudinit_userdata}"
-}
-
-output "userdata_ansible" {
-  value = "${module.userdata_ansible.cloudinit_userdata}"
-}
-
-output "userdata_docker_and_ansible_and_rancher" {
-  value = "${module.userdata_docker_and_ansible_and_rancher.cloudinit_userdata}"
-}
