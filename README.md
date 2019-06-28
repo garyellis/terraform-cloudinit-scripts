@@ -9,7 +9,7 @@ Centrally manage cloud-init scripts. This module supports the following usages:
 ## Why centralize cloud-init scripting?
 
 * Loose coupling infrastructure resources to "user_data" scripts promotes terraform modules reusability and extensibility.
-* Bootstrapping different CM tools should be a trivial task. A common module to bootstrap nodes makes it easy.
+* Bootstrapping different CM tools should be a trivial task. A common module for bootstrap outputs makes it easy.
 * A collection of cloud-init scripts can be used as light weight os configuration management strategy.
 
 #### Note
