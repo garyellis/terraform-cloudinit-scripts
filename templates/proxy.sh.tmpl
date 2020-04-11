@@ -1,0 +1,44 @@
+#!/bin/bash -x
+
+exec > /tmp/proxy.sh.log 2>&1
+
+# config
+http_proxy="${http_proxy}"
+https_proxy="${http_proxy}"
+no_proxy="${no_proxy}"
+
+
+function proxy(){
+  if [ ! -z $http_proxy ]; then
+    cat > /etc/profile.d/proxy.sh <<EOF
+export http_proxy=$http_proxy
+export https_proxy=$https_proxy
+export no_proxy=$no_proxy
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$https_proxy
+export NO_PROXY=$no_proxy
+EOF
+
+  cat >> /etc/environment <<EOF
+http_proxy=$http_proxy
+https_proxy=$https_proxy
+no_proxy=$no_proxy
+HTTP_PROXY=$http_proxy
+HTTPS_PROXY=$https_proxy
+NO_PROXY=$no_proxy
+EOF
+
+  cat >> /root/.bashrc <<EOF
+export http_proxy=$http_proxy
+export https_proxy=$https_proxy
+export no_proxy=$no_proxy
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$https_proxy
+export NO_PROXY=$no_proxy
+EOF
+
+  fi
+}
+
+
+proxy

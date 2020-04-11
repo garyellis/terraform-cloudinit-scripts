@@ -51,3 +51,27 @@ variable "docker_version" {
   type = string
   default = "18.06.3"
 }
+
+variable "install_http_proxy_env" {
+  description = "Setup http proxy environment"
+  type        = bool
+  default     = false
+}
+
+variable "http_proxy" {
+  description = "the http proxy"
+  type        = string
+  default     = ""
+}
+
+variable "https_proxy" {
+  description = "the https proxy"
+  type        = string
+  default     = ""
+}
+
+variable "no_proxy" {
+  description = "the no proxy list"
+  type        = string
+  default     = ""
+}
