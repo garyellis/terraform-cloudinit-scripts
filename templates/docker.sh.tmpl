@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/bash -x
 
-# A very basic docker binary install that can be expanded upon
+# A very basic docker install
+exec > /tmp/docker.sh.log 2>&1
+
 
 DOCKER_VERSION=${docker_version}
 INSTALL_DOCKER_COMPOSE=${install_docker_compose}
@@ -42,7 +44,7 @@ function install_docker_centos(){
 	EOF
 
 
-    docker_version=$(yum list docker-ce --showduplicates|grep $DOCKER_VERSION|sort -r|tail -1|awk '{print $2}')
+    docker_version=$(yum list docker-ce --showduplicates|grep $DOCKER_VERSION|sort -r|tail -1|awk '{print $2}'|sed 's/.*://g')
 
     yum install -y \
         --setopt=obsoletes=0 \
