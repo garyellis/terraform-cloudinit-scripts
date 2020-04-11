@@ -69,3 +69,18 @@ type docker >/dev/null || install_docker_centos
 
 
 [ "$INSTALL_DOCKER_COMPOSE" = true ] && (type docker-compose 2>/dev/null || install_docker_compose)
+
+
+# setup the docker daemon environment
+if [ ! -z $HTTP_PROXY ]; then
+  mkdir -p /etc/systemd/system/docker.service.d
+  cat > /etc/systemd/system/docker.service.d/http-proxy.conf <<EOF
+[Service]
+Environment="HTTP_PROXY=$HTTP_PROXY" "HTTPS_PROXY=$HTTPS_PROXY" "NO_PROXY=$NO_PROXY"
+EOF
+
+  systemctl daemon-reload
+  systemctl restart docker
+  systemctl show --property=Environment docker
+
+fi
