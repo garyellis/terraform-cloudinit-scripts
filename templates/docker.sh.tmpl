@@ -46,7 +46,9 @@ function install_docker_centos(){
 
     yum install -y \
         --setopt=obsoletes=0 \
-        docker-ce-$docker_version
+        docker-ce-$docker_version \
+        docker-ce-cli-$docker_version \
+        containerd.io
 
     systemctl enable docker && systemctl start docker
 }
@@ -55,6 +57,9 @@ function install_docker_compose(){
     curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
     chmod 755 /usr/local/bin/docker-compose
 }
+
+# setup the environment
+source /root/.bashrc
 
 
 # install ubuntu is not currently wired up
