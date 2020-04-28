@@ -8,6 +8,7 @@ DOCKER_VERSION=${docker_version}
 INSTALL_DOCKER_COMPOSE=${install_docker_compose}
 DOCKER_COMPOSE_VERSION=${docker_compose_version}
 
+
 function install_docker_ubuntu(){
 
     # install depepdencies
@@ -37,10 +38,10 @@ function install_docker_centos(){
     cat > /etc/yum.repos.d/docker-ce.repo <<-'EOF'
 	[docker-ce-stable]
 	name=Docker CE Stable - $basearch
-	baseurl=https://download.docker.com/linux/centos/7/$basearch/stable
+	baseurl=${docker_yum_repo_url}
 	enabled=1
 	gpgcheck=1
-	gpgkey=https://download.docker.com/linux/centos/gpg
+	gpgkey=${docker_yum_repo_gpgkey_url}
 	EOF
 
 
