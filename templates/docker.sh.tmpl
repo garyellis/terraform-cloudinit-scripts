@@ -54,6 +54,10 @@ function install_docker_centos(){
         containerd.io
 
     systemctl enable docker && systemctl start docker
+
+    # add the centos user to docker group
+    usermod -aG docker centos
+    newgrp docker
 }
 
 function install_docker_compose(){

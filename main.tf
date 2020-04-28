@@ -15,7 +15,7 @@ locals {
   docker = ! var.install_docker ? "" : templatefile("${path.module}/templates/docker.sh.tmpl", {
     docker_version         = var.docker_version,
     docker_yum_repo_url    = var.docker_yum_repo_url,
-    docker_yum_gpgkey_url  = var.docker_yum_repo_gpgkey_url,
+    docker_yum_repo_gpgkey_url  = var.docker_yum_repo_gpgkey_url,
     install_docker_compose = var.install_docker_compose,
     docker_compose_version = var.docker_compose_version
   })
